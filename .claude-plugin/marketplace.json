@@ -8,7 +8,7 @@
     {
       "name": "fitcheck",
       "source": "./",
-      "description": "Score a resume against a job posting the way an ATS would, then build a truthful tailored resume and track the application."
+      "description": "Assess your resume against a job posting the way an ATS would, build a truthful tailored resume, and track your applications."
     }
   ]
 }

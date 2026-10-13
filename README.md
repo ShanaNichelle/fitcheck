@@ -2,7 +2,7 @@
 
 Fitcheck is a skill for [Claude Code](https://claude.com/claude-code). It reads your resume the way an applicant tracking system (ATS) does, scores it against one job posting, and tells you exactly what to change to raise the score, using only things that are true about you. It never invents experience.
 
-Once you approve the changes, it builds the tailored resume and logs the application.
+When a role is worth pursuing, it builds the tailored resume from the changes you approve and logs the application.
 
 **What you get for each job:**
 
@@ -28,9 +28,19 @@ In Claude Code, run these two commands:
 
 Then restart Claude Code.
 
+## The three commands
+
+You can type a command, or just say what you want in plain words. Both work.
+
+| Command | Or just say | What it does |
+| :- | :- | :- |
+| `/fitcheck:assess` | "Assess my fit for this role" or "Am I a good fit for this job?" | Scores your resume against the posting and recommends changes |
+| `/fitcheck:tailor` | "Build the resume for Acme" or "Go ahead" | Builds the tailored resume from the changes you approved |
+| `/fitcheck:track` | "Mark Acme as Applied" or "What have I applied to?" | Updates and shows your application tracker |
+
 ## First run
 
-Type `/fitcheck:fitcheck`, or just say "run a fit check". It asks three questions once and remembers your answers:
+The first time you use any of them, Fitcheck asks three questions once and remembers your answers:
 
 1. **Where to save your files.** For example `~/Documents/Job Search`.
 2. **Where your career history lives.** Point it to any documents with more detail than your resume: a career summary, project case studies, interview stories. This is how Fitcheck finds true experience your resume leaves out. If you have none, say so, and it works from your resume alone. (Worth making one: a single document listing every project, metric, and story improves every future application.)
@@ -39,21 +49,35 @@ Type `/fitcheck:fitcheck`, or just say "run a fit check". It asks three question
    - **Spreadsheet**: it creates `Applications.csv` in your folder, which opens in Numbers, Excel, or Google Sheets.
    - **Don't track.**
 
-To change an answer later, just tell it: "fitcheck: track in a spreadsheet instead."
+To change an answer later, just tell it: "track in a spreadsheet instead."
 
 ## Each job
 
+**1. Assess.** Give it the posting and your resume:
+
 ```
-/fitcheck:fitcheck https://jobs.example.com/posting/1234 using ~/Documents/My Resume.pdf
+/fitcheck:assess https://jobs.example.com/posting/1234 using ~/Documents/My Resume.pdf
 ```
 
-1. It writes the fit assessment and shows you the scores and recommended changes.
-2. You say go, or drop or change any of them. Nothing is built until you answer.
-3. It builds the tailored resume, rescores it, and logs the application.
+You get the fit assessment, your scores, and a numbered list of recommended changes. Nothing else happens until you decide.
 
-Your original resume is never changed. Everything for a job lands in its own folder, named after the company.
+**2. Tailor.** If the role is worth pursuing, say "go ahead", or drop or change any of the recommendations first. You can also come back another day:
 
-**Updating an application:** just ask, for example "fitcheck: mark Acme as Applied" or "add a note to the Acme row: recruiter call Friday." If you applied to the same company more than once, it asks which application you mean.
+```
+/fitcheck:tailor Acme
+```
+
+It builds the tailored resume, rescores it, and logs the application. Fitcheck saves the posting and its notes with each assessment, so this works even after the posting is taken down.
+
+**3. Track.** Keep your tracker current as things move:
+
+```
+/fitcheck:track mark Acme as Applied
+```
+
+If you applied to the same company more than once, it asks which application you mean.
+
+Your original resume is never changed. Everything for a job lands in its own folder, named after the company. Fitcheck never submits an application for you.
 
 **If you track in the spreadsheet:** keep the file as `Applications.csv`. You can open it in Numbers, Excel, or Google Sheets, but when you save, choose CSV format. If you save it in the app's own format instead, you end up with two copies that drift apart: your edits in one, Fitcheck's new rows in the other. In Numbers, use File > Export To > CSV and save over `Applications.csv`.
 
@@ -67,7 +91,7 @@ Fitcheck keeps your settings in a folder named `.fitcheck` in your home folder, 
 
 ## How scoring works
 
-Fitcheck weights every term in the posting by where it appears (requirements count most, nice to haves least, company boilerplate not at all) and by how often it is repeated. It then matches those terms literally against the text a parser extracts from your resume file: exact phrases earn full credit, close variants earn half, and synonyms earn almost nothing, because that is how keyword matching behaves. Job title, stated minimums such as years of experience, and how cleanly the file parses make up the rest. The full rules are in [`skills/fitcheck/scoring.md`](skills/fitcheck/scoring.md).
+Fitcheck weights every term in the posting by where it appears (requirements count most, nice to haves least, company boilerplate not at all) and by how often it is repeated. It then matches those terms literally against the text a parser extracts from your resume file: exact phrases earn full credit, close variants earn half, and synonyms earn almost nothing, because that is how keyword matching behaves. Job title, stated minimums such as years of experience, and how cleanly the file parses make up the rest. The full rules are in [`shared/scoring.md`](shared/scoring.md).
 
 **Scores run lower than you might expect.** A strong resume often starts around 55 to 70. 90 to 95 is the realistic top. When that is not reachable truthfully, Fitcheck says so and explains what holds it back.
 

@@ -1,8 +1,15 @@
 {
   "name": "fitcheck",
-  "version": "0.1.0",
-  "description": "Score a resume against a job posting the way an ATS would, then build a truthful tailored resume and track the application.",
-  "author": { "name": "Shana Sanford" },
+  "version": "0.2.0",
+  "description": "Assess your resume against a job posting the way an ATS would, build a truthful tailored resume, and track your applications.",
+  "author": {
+    "name": "Shana Sanford"
+  },
   "license": "MIT",
-  "keywords": ["resume", "ats", "job search", "career"]
+  "keywords": [
+    "resume",
+    "ats",
+    "job search",
+    "career"
+  ]
 }
