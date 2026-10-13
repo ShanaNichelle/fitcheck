@@ -1,0 +1,68 @@
+/* Fitcheck resume stylesheet. Single column, ATS friendly: real text, standard headings, bullets as styling. */
+
+@page { size: letter; margin: 0.45in 0.6in; }
+
+:root{
+  --ink:#000;
+  --header-ink:#2f5496;      /* section header blue */
+  --bar:#d9d9d9;             /* job heading bar */
+  --body: Calibri, Carlito, "Segoe UI", sans-serif;
+  --display: "Quattrocento Sans", Calibri, Arial, sans-serif;
+  --size: 10pt;
+  --lh: 1.15;
+}
+
+*{ box-sizing:border-box; }
+body{
+  margin:0; color:var(--ink);
+  font-family:var(--body); font-size:var(--size); line-height:var(--lh);
+}
+
+/* ---------- name + contact ---------- */
+.name{ font-family:var(--display); font-size:24pt; font-weight:700;
+       font-variant:small-caps; color:var(--header-ink);
+       letter-spacing:.01em; margin:0 0 1pt; }
+.contact{ margin:0 0 10pt; }
+.contact a{ color:var(--ink); text-decoration:none; }
+a{ color:var(--header-ink); text-decoration:underline; }
+
+/* ---------- role title + positioning line ---------- */
+.role{ font-family:var(--display); font-size:14pt; font-weight:700;
+       font-variant:small-caps; color:var(--header-ink);
+       text-align:center; margin:0 0 2pt; }
+.positioning{ font-weight:700; text-align:center; margin:0 0 8pt; }
+
+.summary{ margin:0 0 10pt; }
+
+/* ---------- section headers ---------- */
+h2{
+  font-family:var(--display); font-size:14pt; font-weight:700;
+  font-variant:small-caps; color:var(--header-ink);
+  letter-spacing:.01em; margin:13pt 0 4pt; padding:0;
+}
+
+/* ---------- skills + areas ---------- */
+ul.skills{ margin:0; padding-left:36pt; }
+ul.skills li{ margin:0 0 2pt; }
+.areas{ margin:0; text-align:center; }
+
+/* ---------- experience ---------- */
+.job{
+  display:flex; justify-content:space-between; align-items:baseline; gap:12pt;
+  background:var(--bar); padding:2.5pt 0; margin:10pt 0 4pt; font-weight:700;
+  break-inside:avoid;
+}
+.job .dates{ white-space:nowrap; }
+.project{ font-weight:700; margin:6pt 0 2pt; }
+.project + p{ margin-top:0; }
+p{ margin:0 0 5pt; }
+ul.bullets{ margin:2pt 0 4pt; padding-left:36pt; }
+ul.bullets li{ margin:0 0 3pt; }
+ul.skills li::marker, ul.bullets li::marker{ font-size:1.25em; }
+
+/* keep a heading with what follows it */
+h2, .job, .project{ break-after:avoid; }
+li, p{ break-inside:avoid; }
+
+/* ---------- footer blocks ---------- */
+.edline{ margin:0 0 4pt; }

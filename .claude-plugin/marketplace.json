@@ -1,0 +1,14 @@
+{
+  "name": "fitcheck",
+  "description": "Fitcheck: an ATS style resume fit check and tailoring skill for Claude Code.",
+  "owner": {
+    "name": "Shana Sanford"
+  },
+  "plugins": [
+    {
+      "name": "fitcheck",
+      "source": "./",
+      "description": "Score a resume against a job posting the way an ATS would, then build a truthful tailored resume and track the application."
+    }
+  ]
+}

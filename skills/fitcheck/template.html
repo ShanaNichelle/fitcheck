@@ -1,0 +1,110 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<!-- fitcheck template. Replace every {{...}}. Delete any section marked OPTIONAL that does not apply.
+     Section order is fixed. Follow the avoid dashes setting in the user's rules file. -->
+<title>{{Company}} Fit Assessment</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400&amp;family=Quattrocento+Sans:wght@400;700&amp;display=swap">
+<style>
+@page { size: letter; margin: 0.6in 0.7in; }
+:root{ --ink:#111; --head:#2f5496; --rule:#d9d9d9; --good:#1b6b45; --bad:#a3321f; --warn:#9c5a0c; }
+body{ margin:0; color:var(--ink); font-family:Carlito,Calibri,sans-serif; font-size:10.5pt; line-height:1.38; }
+h1{ font-family:"Quattrocento Sans",sans-serif; font-size:17pt; color:var(--head); margin:0 0 2pt; }
+.sub{ color:#555; margin:0 0 14pt; }
+h2{ font-family:"Quattrocento Sans",sans-serif; font-size:12pt; font-variant:small-caps; color:var(--head);
+    letter-spacing:.02em; margin:16pt 0 5pt; border-bottom:1px solid var(--rule); padding-bottom:2pt; }
+p{ margin:0 0 7pt; }
+table{ border-collapse:collapse; width:100%; font-size:9.8pt; margin:0 0 8pt; }
+th{ text-align:left; background:#f0f0ee; padding:4pt 6pt; border:1px solid var(--rule); font-size:9pt;
+    text-transform:uppercase; letter-spacing:.05em; }
+td{ padding:4pt 6pt; border:1px solid var(--rule); vertical-align:top; }
+td.v{ white-space:nowrap; font-weight:700; }
+.met{ color:var(--good); } .part{ color:var(--warn); } .miss{ color:var(--bad); }
+.score{ font-family:"Quattrocento Sans",sans-serif; font-size:26pt; font-weight:700; color:var(--head); }
+.scorebox{ border:1px solid var(--rule); background:#f7f7f5; padding:9pt 12pt; margin:0 0 12pt; }
+ul{ margin:0 0 8pt; padding-left:16pt; } li{ margin:0 0 4pt; }
+.tag{ font-size:8.5pt; text-transform:uppercase; letter-spacing:.06em; padding:1pt 5pt; border-radius:9pt; }
+.t-keep{ background:#e3eee8; color:var(--good); } .t-new{ background:#f4e8d7; color:var(--warn); }
+.t-cut{ background:#f7e3df; color:var(--bad); }
+
+/* fitcheck: three score box and extra tags */
+.trio{ display:flex; gap:22pt; align-items:baseline; margin:0 0 5pt; }
+.trio div{ font-size:9pt; text-transform:uppercase; letter-spacing:.06em; color:#555; }
+.trio .score{ display:block; text-transform:none; letter-spacing:0; }
+.trio .now .score{ color:#777; }
+.t-fmt{ background:#e4e9f4; color:var(--head); }
+td.num{ white-space:nowrap; text-align:right; }
+code{ font-size:9pt; background:#f0f0ee; padding:0 3pt; }
+</style></head><body>
+
+<h1>{{Company}}: {{Role title verbatim}}</h1>
+<p class="sub">ATS fit assessment and tailoring rationale &middot; prepared {{D Mon YYYY}} &middot; <a href="{{JD URL}}">job posting</a> &middot; scored against {{resume file name}}</p>
+
+<div class="scorebox">
+<div class="trio">
+  <div class="now">Current<span class="score">{{NN}}</span></div>
+  <div>Projected<span class="score">{{NN}}</span></div>
+</div>
+<b>{{One sentence verdict.}}</b> {{If Projected is under 90: say so and name the unclaimable gaps that hold it there.}}<br>
+{{Location and work model. Salary as published, or "No salary published." One line on what the company does.}}
+</div>
+
+<h2>How it was scored</h2>
+<p>{{One or two sentences: the JD was weighted by its own wording (required highest, preferred lowest, repeated terms higher) and matched literally against the parsed text of the resume. Name the top three terms by weight.}}</p>
+<table>
+<tr><th>Component</th><th>Weight</th><th>Current</th><th>Projected</th><th>What drives it</th></tr>
+<tr><td>Keyword match</td><td class="num">65%</td><td class="num">{{K}}</td><td class="num">{{K}}</td><td>{{e.g. 31 of 38 weighted terms matched exactly}}</td></tr>
+<tr><td>Title alignment</td><td class="num">15%</td><td class="num">{{T}}</td><td class="num">{{T}}</td><td>{{e.g. role line reads "Product Designer"; posting says "Senior Product Designer"}}</td></tr>
+<tr><td>Qualifications</td><td class="num">10%</td><td class="num">{{Q}}</td><td class="num">{{Q}}</td><td>{{years computed from dates, degree, location}}</td></tr>
+<tr><td>Parse health</td><td class="num">10%</td><td class="num">{{P}}</td><td class="num">{{P}}</td><td>{{clean, or the issues found}}</td></tr>
+</table>
+
+<h2>Hard gates</h2>
+<p>{{Each stated minimum and whether it is met. Years are computed from the resume's date ranges, the way an ATS does it. If none: "None." and why that matters.}}</p>
+
+<!-- OPTIONAL: include only when one project maps unusually well to the posting's core ask. -->
+<h2>The parallel to lead with</h2>
+<p>{{Quote the posting's core ask. Name the project that answers it and why, in plain words.}}</p>
+
+<h2>Requirement by requirement</h2>
+<table>
+<tr><th>Their requirement</th><th>Weight</th><th>Status</th><th>Evidence on the resume</th></tr>
+<tr><td>{{Requirement, close to verbatim}}</td><td class="num">{{3}}</td><td class="v met">Met</td><td>{{Where it shows}}</td></tr>
+<tr><td>{{Requirement}}</td><td class="num">{{2}}</td><td class="v part">Partial</td><td>{{What is there, and what is missing. <b>Bold the gap.</b>}}</td></tr>
+<tr><td>{{Requirement}} <i>(bonus)</i></td><td class="num">{{1}}</td><td class="v miss">Missing</td><td>{{Missing; fixable from source X, or not claimable}}</td></tr>
+</table>
+
+<h2>Keyword coverage</h2>
+<p><b>Present, exact:</b> {{comma separated, JD wording}}</p>
+<p><b>Missing but true</b> (the recommended changes add these): {{term (source), term (source)}}</p>
+<p><b>Absent, not claimable:</b> {{terms}}. None are claimed because none are true.</p>
+
+<h2>Rationale for the changes</h2>
+<!-- Tags: base (which resume to start from), reword (JD wording for something already shown),
+     surface (true, in the extra context, missing from the resume), promote, cut.
+     Classes: base and promote use t-keep; reword and surface use t-new; cut uses t-cut.
+     Every row names its source. No source, no row. -->
+<table>
+<tr><th>Change</th><th>Type</th><th>Source</th><th>Points</th><th>Why</th></tr>
+<tr><td>{{Built from the X version}}</td><td class="v"><span class="tag t-keep">base</span></td><td>{{file}}</td><td class="num">n/a</td><td>{{Why this starting point}}</td></tr>
+<tr><td>{{Change}}</td><td class="v"><span class="tag t-new">reword</span></td><td>{{resume line / source of truth / case study / story}}</td><td class="num">+{{n}}</td><td>{{The JD phrase it matches and why it is true}}</td></tr>
+<tr><td>{{Change}}</td><td class="v"><span class="tag t-cut">cut</span></td><td>{{n/a}}</td><td class="num">0</td><td>{{What it frees up}}</td></tr>
+</table>
+
+<h2>ATS formatting</h2>
+<!-- Only issues actually found by ats_parse.swift or the HTML scan. If none, keep one line:
+     "The resume parses cleanly: contact details in the body, standard headings, one date format, no decorative glyphs." -->
+<table>
+<tr><th>Issue found</th><th>Type</th><th>Fix</th></tr>
+<tr><td>{{e.g. "■" before each job title}}</td><td class="v"><span class="tag t-fmt">format</span></td><td>{{e.g. Remove the glyph; some parsers skip a heading that does not start with a letter, so the role may not be recognized as a job.}}</td></tr>
+</table>
+
+<h2>What cannot be fixed on paper</h2>
+<ul>
+<li><b>{{Gap}}.</b> {{Why it is a gap, and the honest bridge if one exists.}}</li>
+</ul>
+
+<h2>Before applying</h2>
+<ul>
+<li>{{Salary, logistics, portfolio lead, application form notes, questions for the first call.}}</li>
+</ul>
+
+</body></html>
